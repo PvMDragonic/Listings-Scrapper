@@ -14,10 +14,13 @@
   "dependencies": {
     "@types/express": "^5.0.1",
     "@types/node": "^22.13.13",
+    "axios": "^1.8.4",
     "express": "^4.21.2",
+    "jsdom": "^26.0.0",
     "typescript": "^5.8.2"
   },
   "devDependencies": {
+    "@types/jsdom": "^21.1.7",
     "tsc-watch": "^6.2.1"
   }
 }
