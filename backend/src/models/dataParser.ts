@@ -42,9 +42,12 @@ export async function processItemListing(input: string): Promise<ProcessedData[]
             const rating = div.querySelector('div[data-cy="reviews-block"] span')?.textContent ?? '';
             const reviews = div.querySelector('div[data-cy="reviews-block"] span[data-component-type="s-client-side-analytics"]')?.textContent ?? '';
             const image = div.querySelector('img.s-image')?.getAttribute('src') ?? '';
-        
+
             return { title, rating, reviews, image };
-        });
+        }).filter(
+            // Some entries return as empty. Probably an anti-scrapping measure, but not sure. 
+            product => product.title !== '' && product.image !== ''
+        );
     } 
     catch (error) 
     {
