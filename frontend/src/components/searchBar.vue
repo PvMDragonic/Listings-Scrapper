@@ -8,9 +8,10 @@
     </div>
 </template>
   
-<script lang="ts">
+<script setup lang = "ts">
+    import { ref } from 'vue';
     import { api } from '../api/api';
-    
+
     type ProcessedData = 
     {
         title: string;
@@ -19,47 +20,36 @@
         image: string;
     };
 
-    export default 
-    {
-        data() 
-        {
-            return {
-                searchText: '',
-                debounceTimeout: null as number | null,
-                results: [] as ProcessedData[]
-            };
-        },
+    const searchText = ref('');
+    const debounceTimeout = ref<number | null>(null);
+    const results = ref<ProcessedData[]>([]);
 
-        methods: 
+    function onInput() 
+    {
+        if (debounceTimeout.value) 
+            clearTimeout(debounceTimeout.value);
+
+        debounceTimeout.value = setTimeout(
+            () => makePostRequest(), 500
+        );
+    };
+
+    async function makePostRequest() 
+    {
+        if (searchText.value.trim()) 
         {
-            onInput() 
+            try 
             {
-                clearTimeout(this.debounceTimeout!);
-        
-                this.debounceTimeout = setTimeout(
-                    () => this.makePostRequest(), 500
-                );
-            },
-    
-            async makePostRequest() 
+                const response = await api.post('/process-data', {
+                    searchTerm: searchText.value
+                });
+
+                results.value = response.data;
+            } 
+            catch (error) 
             {
-                if (this.searchText.trim()) 
-                {
-                    try 
-                    {
-                        api.post('/process-data', {
-                            searchTerm: this.searchText
-                        }).then(response => {
-                            console.log(response.data)
-                            this.results = response.data;
-                        });
-                    } 
-                    catch (error) 
-                    {
-                        console.error('Error making POST request:', error);
-                    }
-                }
-            },
-        },
+                console.error('Error making POST request:', error);
+            }
+        }
     };
 </script>
