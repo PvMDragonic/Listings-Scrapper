@@ -38,9 +38,9 @@ export async function processItemListing(input: string): Promise<ProcessedData[]
 
         return Array.from(itemListing).map(div => 
         {
-            const title = div.querySelector("div > div[data-cy='title-recipe'] > a > h2")?.textContent ?? '';
-            const rating = div.querySelector("span.a-icon-alt")?.textContent ?? '';
-            const reviews = div.querySelector("span.a-size-base.s-underline-text")?.textContent ?? '';
+            const title = div.querySelector('h2')?.textContent ?? '';
+            const rating = div.querySelector('div[data-cy="reviews-block"] span')?.textContent ?? '';
+            const reviews = div.querySelector('div[data-cy="reviews-block"] span[data-component-type="s-client-side-analytics"]')?.textContent ?? '';
             const image = div.querySelector('img.s-image')?.getAttribute('src') ?? '';
         
             return { title, rating, reviews, image };
