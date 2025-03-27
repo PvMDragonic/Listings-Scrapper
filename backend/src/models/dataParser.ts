@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
 import { error } from 'console';
+import { getUserAgent } from './userAgent';
 
 type ProcessedData = 
 {
@@ -9,13 +10,21 @@ type ProcessedData =
     reviews: string;
     image: string;
 };
-  
+
 export async function processItemListing(input: string): Promise<ProcessedData[] | null>
 {
     try 
     {
+        const randomUserAgent = await getUserAgent();
         const searchTerm = input.toLowerCase().replace(' ', '+');
-        const { data } = await axios.get(`https://www.amazon.com/s?k=${searchTerm}`);
+        const { data } = await axios.get(`https://www.amazon.com/s?k=${searchTerm}`, {
+            headers: {
+                'User-Agent': randomUserAgent,
+                'Accept-Language': 'en-gb, en',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'Referer': 'https://www.google.com/'
+            }
+        });
         
         const dom = new JSDOM(data);
 

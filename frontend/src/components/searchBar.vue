@@ -50,6 +50,7 @@
                         api.post('/process-data', {
                             searchTerm: this.searchText
                         }).then(response => {
+                            console.log(response.data)
                             this.results = response.data;
                         });
                     } 

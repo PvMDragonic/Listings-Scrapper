@@ -17,7 +17,8 @@
     "axios": "^1.8.4",
     "express": "^4.21.2",
     "jsdom": "^26.0.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "useragents-me-api": "^1.1.0"
   },
   "devDependencies": {
     "@types/jsdom": "^21.1.7",
