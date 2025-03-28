@@ -1,0 +1,26 @@
+@use './_variables' as *;
+
+@function background-primary()
+{
+    @return $color_light_grey;
+}
+
+@function background-secondary()
+{
+    @return $color_regular_grey;
+}
+
+@function background-tertiary()
+{
+    @return $color_dark_grey;
+}
+
+@function text-primary()
+{
+    @return $color_white;
+}
+
+@function accent-detail()
+{
+    @return $color_light_yellow;
+}

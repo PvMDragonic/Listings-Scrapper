@@ -1,0 +1,74 @@
+@use '../utilities/functions' as *;
+
+.home
+{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: background-primary();
+    padding-top: 5rem;
+    gap: 0.5rem;
+    
+    & ul, li
+    {
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        width: 100%;
+        gap: 1rem;
+    }
+
+    &__title
+    {
+        color: text-primary();
+        font-family: monospace;
+        font-size: 1.5rem;
+    }
+
+    &__container
+    {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background-color: background-secondary();
+        box-shadow: 0.25rem 0.25rem accent-detail();
+        border: 0.1rem solid background-tertiary();
+        border-radius: 1rem;
+        transition: width 0.4s ease-out;
+        transition: max-height 0.4s ease-out;
+        padding: 1rem;
+        max-width: 85%;
+        gap: 1rem;
+
+        &::-webkit-scrollbar 
+        {
+            width: 1.5rem;
+        }
+    
+        &::-webkit-scrollbar-track 
+        {
+            border-radius: 0.2rem;
+            margin-top: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        &::-webkit-scrollbar-thumb 
+        { 
+            cursor: ns-resize;
+            border: 0.5rem solid background-secondary();
+            background: background-tertiary();
+            border-radius: 1rem;
+            margin: 1rem;
+        }
+
+        @-moz-document url-prefix() 
+        {
+            scrollbar-color: background-tertiary() background-secondary();
+            scrollbar-width: thin;
+        }
+    }
+}
