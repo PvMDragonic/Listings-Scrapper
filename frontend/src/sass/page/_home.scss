@@ -71,4 +71,16 @@
             scrollbar-width: thin;
         }
     }
+
+    &__counter
+    {
+        //border-top: 0.1rem solid text-primary();
+        text-align: center;
+        width: 100%;
+        
+        & > h2
+        {
+            color: text-primary();
+        }
+    }
 }

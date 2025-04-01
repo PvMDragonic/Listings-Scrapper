@@ -11,6 +11,14 @@
             <SearchBar 
                 @updateListings = "updateListings"
             />
+            <div 
+                v-if = "listings && listings.length > 0"
+                class = "home__counter"
+            >
+                <h2>
+                    {{ listings.length > 0 ? `${listings.length} listings found:` : 'No item(s) found.' }}
+                </h2>
+            </div>
             <ul v-if = "listings && listings.length > 0">
                 <li v-for = "(item, index) in listings" :key = "index">
                     <itemContainer
