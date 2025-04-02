@@ -19,7 +19,7 @@
 </template>
   
 <script setup lang = "ts">
-    import { ref } from 'vue';
+    import { ref, toRef, watch } from 'vue';
     import { api } from '../api/api';
     import type { ProcessedData } from '../App.vue';
     import ClearButton from '../assets/clearButton.vue';
@@ -27,9 +27,19 @@
     const searchText = ref('');
     const debounceTimeout = ref<number | null>(null);
 
+    const props = defineProps({
+        regionDomain: String
+    });
+
     const emit = defineEmits<{
         (event: 'updateListings', listings: Array<ProcessedData>): void;
     }>();
+
+    // Something something Vue needs reactivity to watch() this prop.
+    const regionDomain = toRef(props, 'regionDomain');
+
+    // Will run the search again when a region gets selected.
+    watch(regionDomain, () => onInput());
 
     function onInput() 
     {
@@ -55,13 +65,15 @@
         try 
         {
             const response = await api.post('/process-data', {
+                regionDomain: props.regionDomain,
                 searchTerm: searchText.value
             });
+            
             emit('updateListings', response.data);
         } 
         catch (error) 
         {
             console.error('Error making POST request:', error);
-        }
+        }   
     }    
 </script>

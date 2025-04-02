@@ -24,3 +24,8 @@
 {
     @return $color_light_yellow;
 }
+
+@function accent-detail-secondary()
+{
+    @return $color_orange;
+}

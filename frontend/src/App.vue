@@ -8,9 +8,17 @@
             class = 'home__container'
             :style = 'divStyle'
         >
-            <SearchBar 
-                @updateListings = "updateListings"
-            />
+            <div class = 'home__header'>
+                <RegionSelector
+                    v-model:regionDomain = "regionDomain"
+                    v-model:parentRef = "resizeElement"
+                    @update-region = "updateRegion"
+                />
+                <SearchBar 
+                    v-model:regionDomain = "regionDomain"
+                    @updateListings = "updateListings"
+                />
+            </div>
             <div 
                 v-if = "listings && listings.length > 0"
                 class = "home__counter"
@@ -37,6 +45,7 @@
     import { ref, reactive, onMounted, onBeforeUnmount } from 'vue';
     import SearchBar from './components/searchBar.vue';
     import itemContainer from './components/itemContainer.vue';
+    import RegionSelector from './components/regionSelector.vue';
 
     export type ProcessedData = 
     {
@@ -47,14 +56,19 @@
     };
 
     const listings = ref<ProcessedData[]>([]);
-
     const resizeElement = ref<HTMLElement | null>(null);
+    const regionDomain = ref('.com');
 
     const divStyle = reactive({
         paddingRight: '16px',
         maxHeight: '4.125rem', 
         width: '20rem'
     });
+
+    function updateRegion(newRegion: string)
+    {
+        regionDomain.value = newRegion;
+    }
 
     function updateListings(newValue: ProcessedData[]) 
     {

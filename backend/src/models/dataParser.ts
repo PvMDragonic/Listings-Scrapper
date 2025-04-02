@@ -11,13 +11,15 @@ type ProcessedData =
     image: string;
 };
 
-export async function processItemListing(input: string): Promise<ProcessedData[] | null>
+export async function processItemListing(region: string, search: string): Promise<ProcessedData[] | null>
 {
     try 
     {
         const randomUserAgent = await getUserAgent();
-        const searchTerm = input.toLowerCase().replace(' ', '+');
-        const { data } = await axios.get(`https://www.amazon.com/s?k=${searchTerm}`, {
+        const searchTerm = search.toLowerCase().replace(' ', '+');
+        const regionDomain = !region.startsWith('.com') ? `.com${region}` : '.com';
+
+        const { data } = await axios.get(`https://www.amazon${regionDomain}/s?k=${searchTerm}`, {
             headers: {
                 'User-Agent': randomUserAgent,
                 'Accept-Language': 'en-gb, en',

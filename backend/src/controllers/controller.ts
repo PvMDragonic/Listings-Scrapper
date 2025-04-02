@@ -5,7 +5,8 @@ export async function processData(req: Request, res: Response)
 {
     try 
     {
-        const result = await processItemListing(req.body.searchTerm);
+        const { regionDomain, searchTerm } = req.body;
+        const result = await processItemListing(regionDomain, searchTerm);
         res.json(result);
     }
     catch (err: unknown) 

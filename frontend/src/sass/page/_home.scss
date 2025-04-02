@@ -30,19 +30,21 @@
     &__container
     {
         display: flex;
-        align-items: center;
         flex-direction: column;
-        overflow-y: auto;
-        overflow-x: hidden;
+        gap: 1rem;
+
+        padding: 1rem;
+        max-width: 85%;
+
         background-color: background-secondary();
         box-shadow: 0.25rem 0.25rem accent-detail();
         border: 0.1rem solid background-tertiary();
         border-radius: 1rem;
+
         transition: width 0.4s ease-out;
         transition: max-height 0.4s ease-out;
-        padding: 1rem;
-        max-width: 85%;
-        gap: 1rem;
+        overflow-x: hidden;
+        overflow-y: auto;
 
         &::-webkit-scrollbar 
         {
@@ -72,9 +74,16 @@
         }
     }
 
+    &__header
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+
     &__counter
     {
-        //border-top: 0.1rem solid text-primary();
         text-align: center;
         width: 100%;
         

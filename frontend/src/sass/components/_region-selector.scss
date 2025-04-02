@@ -1,0 +1,109 @@
+@use '../utilities/functions' as *;
+
+.region-selector
+{
+    min-width: 42px;
+    height: 2rem;
+    z-index: 100;
+
+    border-radius: 0.5rem;
+    background-color: accent-detail();
+    border: 0.1rem solid background-tertiary();
+    transition: 0.3s;
+
+    color: background-tertiary();
+    font-size: 0.8rem;
+    font-weight: bold;
+    user-select: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover
+    {
+        background-color: accent-detail-secondary();
+    }
+
+    &__container
+    {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        gap: 0.25rem;
+
+        position: fixed;
+        padding-top: 0.65rem;
+        padding-bottom: 0.25rem;
+        z-index: 99;
+
+        height: 10rem;
+        width: 40px;
+
+        font-size: 0.8rem;
+        font-weight: bold;
+
+        background-color: accent-detail();
+        border-bottom-right-radius: 0.5rem;
+        border-bottom-left-radius: 0.5rem;
+
+        &::-webkit-scrollbar 
+        {
+            width: 0.25rem;
+        }
+    
+        &::-webkit-scrollbar-track 
+        {
+            border-radius: 0.2rem;
+            margin-top: 0.65rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        &::-webkit-scrollbar-thumb 
+        { 
+            border: none;
+            background: text-primary();
+            border-radius: 1rem;
+            margin: 1rem;
+            cursor: ns-resize;
+        }
+
+        @-moz-document url-prefix() 
+        {
+            scrollbar-color: text-primary() accent-detail();
+            scrollbar-width: thin;
+        }
+    }
+
+    &__button
+    {
+        width: 1.75rem;
+        min-height: 1.75rem;
+
+        background-color: text-primary();
+        color: background-tertiary();
+        font-size: 0.7rem;
+        font-weight: bold;
+
+        border: 0.1rem solid text-primary();
+        border-radius: 0.5rem;
+        
+        cursor: pointer;
+        transition: 0.3s;
+        
+        &:hover
+        {
+            border: 0.1rem solid background-tertiary();
+            background-color: accent-detail();
+        }
+
+        &:active
+        {
+            border: 0.1rem solid background-tertiary();
+            background-color: accent-detail-secondary();
+        }
+    }
+}
