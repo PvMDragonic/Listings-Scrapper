@@ -16,27 +16,33 @@
                 />
                 <SearchBar 
                     v-model:regionDomain = "regionDomain"
+                    @updateLoading = "updateLoading"
                     @updateListings = "updateListings"
                 />
             </div>
             <div 
-                v-if = "listings && listings.length > 0"
-                class = "home__counter"
+                v-if = "showLoading"
+                class = 'home__loading'
             >
-                <h2>
-                    {{ listings.length > 0 ? `${listings.length} listings found:` : 'No item(s) found.' }}
-                </h2>
+                <Loading/>
             </div>
-            <ul v-if = "listings && listings.length > 0">
-                <li v-for = "(item, index) in listings" :key = "index">
-                    <itemContainer
-                        :imageUrl = "item.image"
-                        :title = "item.title"
-                        :rating = "item.rating"
-                        :reviews = "item.reviews"
-                    />
-                </li>
-            </ul> 
+            <div v-if = "!showLoading && listings && listings.length > 0">
+                <div class = "home__counter">
+                    <h2>
+                        {{ listings.length > 0 ? `${listings.length} listings found:` : 'No item(s) found.' }}
+                    </h2>
+                </div>
+                <ul v-if = "listings && listings.length > 0">
+                    <li v-for = "(item, index) in listings" :key = "index">
+                        <itemContainer
+                            :imageUrl = "item.image"
+                            :title = "item.title"
+                            :rating = "item.rating"
+                            :reviews = "item.reviews"
+                        />
+                    </li>
+                </ul> 
+            </div>
         </div>
     </section>
 </template>
@@ -46,6 +52,7 @@
     import SearchBar from './components/searchBar.vue';
     import itemContainer from './components/itemContainer.vue';
     import RegionSelector from './components/regionSelector.vue';
+    import Loading from './assets/loading.vue';
 
     export type ProcessedData = 
     {
@@ -58,6 +65,7 @@
     const listings = ref<ProcessedData[]>([]);
     const resizeElement = ref<HTMLElement | null>(null);
     const regionDomain = ref('.com');
+    const showLoading = ref(false);
 
     const divStyle = reactive({
         paddingRight: '16px',
@@ -68,6 +76,11 @@
     function updateRegion(newRegion: string)
     {
         regionDomain.value = newRegion;
+    }
+
+    function updateLoading(newValue: boolean)
+    {
+        showLoading.value = newValue;
     }
 
     function updateListings(newValue: ProcessedData[]) 

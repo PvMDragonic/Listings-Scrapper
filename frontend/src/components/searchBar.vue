@@ -32,6 +32,7 @@
     });
 
     const emit = defineEmits<{
+        (event: 'updateLoading', loading: boolean): void;
         (event: 'updateListings', listings: Array<ProcessedData>): void;
     }>();
 
@@ -62,6 +63,8 @@
         if (searchText.value.trim() === '')
             return;
 
+        emit('updateLoading', true);
+
         try 
         {
             const response = await api.post('/process-data', {
@@ -74,6 +77,8 @@
         catch (error) 
         {
             console.error('Error making POST request:', error);
-        }   
+        }  
+        
+        emit('updateLoading', false);
     }    
 </script>
